@@ -39,7 +39,7 @@ const WelcomeScreen = () => {
         </div>
         
         {/* Main Title */}
-        <h1 className="text-3xl font-bold mb-6 tracking-tight leading-tight">
+        <h1 className="text-3xl font-medium mb-6 tracking-tight leading-tight">
           BeeOne Manager
         </h1>
         
