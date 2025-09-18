@@ -1,7 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import beeOneLogo from "@/assets/logo_beeone_white.png";
 import backgroundImage from "@/assets/background_green.png";
 
@@ -18,7 +16,7 @@ const LanguageSelection = () => {
 
   return (
     <div 
-      className="min-h-screen flex flex-col items-center justify-center p-6 relative"
+      className="min-h-screen flex flex-col items-center justify-center p-6 relative font-montserrat"
       style={{
         backgroundImage: `url(${backgroundImage})`,
         backgroundSize: 'cover',
@@ -27,71 +25,81 @@ const LanguageSelection = () => {
       }}
     >
       {/* Overlay for better readability */}
-      <div className="absolute inset-0 bg-black/30"></div>
+      <div className="absolute inset-0 bg-black/20"></div>
       
-      <div className="w-full max-w-md animate-fade-in-up relative z-10">
-        <div className="text-center mb-8">
-          <div className="w-20 h-20 mx-auto bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center mb-4 shadow-soft p-3">
+      <div className="w-full max-w-sm animate-fade-in-up relative z-10">
+        <div className="text-center mb-12">
+          {/* BeeOne Logo */}
+          <div className="w-20 h-20 mx-auto bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center mb-8 shadow-soft p-4">
             <img 
               src={beeOneLogo} 
-              alt="BeeOne Logo" 
+              alt="BeeOne" 
               className="w-full h-full object-contain"
             />
           </div>
-          <h1 className="text-2xl font-bold text-white mb-2">
+          
+          <h1 className="text-2xl font-bold text-white mb-3">
             Welcome to BeeOne Manager
           </h1>
-          <p className="text-white/80">
+          <p className="text-white/80 text-sm font-light">
             Please select your preferred language
           </p>
         </div>
 
-        <div className="space-y-4">
-          <Card 
-            className={`p-6 cursor-pointer transition-smooth hover:shadow-medium bg-white/95 backdrop-blur-sm ${
-              selectedLanguage === 'english' ? 'ring-2 ring-primary bg-white' : ''
+        <div className="space-y-3">
+          <div 
+            className={`bg-white rounded-2xl p-5 cursor-pointer transition-all duration-200 hover:shadow-lg ${
+              selectedLanguage === 'english' ? 'shadow-lg ring-2 ring-white/50' : 'shadow-md'
             }`}
             onClick={() => handleLanguageSelect('english')}
           >
             <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-3">
-                <span className="text-2xl">🇺🇸</span>
-                <span className="text-lg font-medium">English</span>
+              <div className="flex items-center space-x-4">
+                <div className="w-8 h-6 bg-blue-600 rounded flex items-center justify-center">
+                  <span className="text-white text-xs font-bold">US</span>
+                </div>
+                <span className="text-gray-800 font-medium">English</span>
               </div>
-              <div className={`w-6 h-6 rounded-full border-2 transition-smooth ${
-                selectedLanguage === 'english' ? 'bg-primary border-primary' : 'border-muted-foreground'
+              <div className={`w-5 h-5 rounded-full border-2 transition-all ${
+                selectedLanguage === 'english' 
+                  ? 'border-primary bg-primary' 
+                  : 'border-gray-300'
               }`}>
                 {selectedLanguage === 'english' && (
-                  <div className="w-full h-full flex items-center justify-center">
+                  <div className="w-full h-full rounded-full bg-primary flex items-center justify-center">
                     <div className="w-2 h-2 bg-white rounded-full"></div>
                   </div>
                 )}
               </div>
             </div>
-          </Card>
+          </div>
 
-          <Card 
-            className={`p-6 cursor-pointer transition-smooth hover:shadow-medium bg-white/95 backdrop-blur-sm ${
-              selectedLanguage === 'spanish' ? 'ring-2 ring-primary bg-white' : ''
+          <div 
+            className={`bg-white rounded-2xl p-5 cursor-pointer transition-all duration-200 hover:shadow-lg ${
+              selectedLanguage === 'spanish' ? 'shadow-lg ring-2 ring-white/50' : 'shadow-md'
             }`}
             onClick={() => handleLanguageSelect('spanish')}
           >
             <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-3">
-                <span className="text-2xl">🇪🇸</span>
-                <span className="text-lg font-medium">Español</span>
+              <div className="flex items-center space-x-4">
+                <div className="w-8 h-6 bg-red-600 rounded flex items-center justify-center">
+                  <span className="text-white text-xs font-bold">ES</span>
+                </div>
+                <span className="text-gray-800 font-medium">Español</span>
               </div>
-              <div className={`w-6 h-6 rounded-full border-2 transition-smooth ${
-                selectedLanguage === 'spanish' ? 'bg-primary border-primary' : 'border-muted-foreground'
+              <div className={`w-5 h-5 rounded-full border-2 transition-all ${
+                selectedLanguage === 'spanish' 
+                  ? 'border-primary bg-primary' 
+                  : 'border-gray-300'
               }`}>
                 {selectedLanguage === 'spanish' && (
-                  <div className="w-full h-full flex items-center justify-center">
+                  <div className="w-full h-full rounded-full bg-primary flex items-center justify-center">
                     <div className="w-2 h-2 bg-white rounded-full"></div>
                   </div>
                 )}
               </div>
             </div>
-          </Card>
+          </div>
         </div>
       </div>
     </div>
