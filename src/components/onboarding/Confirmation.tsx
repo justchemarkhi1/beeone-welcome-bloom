@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { CheckCircle, Mail, Smartphone, Clock } from "lucide-react";
+import beeOneLogo from "@/assets/logo_beeone_white.png";
+import backgroundImage from "@/assets/background_green.png";
 
 const Confirmation = () => {
   const [animate, setAnimate] = useState(false);
@@ -15,8 +17,19 @@ const Confirmation = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-hero flex flex-col items-center justify-center p-6 text-white">
-      <div className={`w-full max-w-md transition-all duration-1000 ${animate ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
+    <div 
+      className="min-h-screen flex flex-col items-center justify-center p-6 text-white relative"
+      style={{
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat'
+      }}
+    >
+      {/* Overlay for better readability */}
+      <div className="absolute inset-0 bg-black/30"></div>
+      
+      <div className={`w-full max-w-md transition-all duration-1000 relative z-10 ${animate ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
         <Card className="p-8 shadow-glow bg-white text-foreground">
           <div className="text-center mb-6">
             <div className="w-20 h-20 mx-auto bg-gradient-primary rounded-full flex items-center justify-center mb-4 shadow-soft animate-bounce-gentle">

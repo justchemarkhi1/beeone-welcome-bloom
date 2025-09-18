@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import beeOneLogo from "@/assets/logo_beeone_white.png";
+import backgroundImage from "@/assets/background_green.png";
 
 const LanguageSelection = () => {
   const navigate = useNavigate();
@@ -15,24 +17,39 @@ const LanguageSelection = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background flex flex-col items-center justify-center p-6">
-      <div className="w-full max-w-md animate-fade-in-up">
+    <div 
+      className="min-h-screen flex flex-col items-center justify-center p-6 relative"
+      style={{
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat'
+      }}
+    >
+      {/* Overlay for better readability */}
+      <div className="absolute inset-0 bg-black/30"></div>
+      
+      <div className="w-full max-w-md animate-fade-in-up relative z-10">
         <div className="text-center mb-8">
-          <div className="w-16 h-16 mx-auto bg-gradient-primary rounded-full flex items-center justify-center mb-4 shadow-soft">
-            <span className="text-white font-bold text-xl">B</span>
+          <div className="w-20 h-20 mx-auto bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center mb-4 shadow-soft p-3">
+            <img 
+              src={beeOneLogo} 
+              alt="BeeOne Logo" 
+              className="w-full h-full object-contain"
+            />
           </div>
-          <h1 className="text-2xl font-bold text-foreground mb-2">
+          <h1 className="text-2xl font-bold text-white mb-2">
             Welcome to BeeOne Manager
           </h1>
-          <p className="text-muted-foreground">
+          <p className="text-white/80">
             Please select your preferred language
           </p>
         </div>
 
         <div className="space-y-4">
           <Card 
-            className={`p-6 cursor-pointer transition-smooth hover:shadow-medium ${
-              selectedLanguage === 'english' ? 'ring-2 ring-primary bg-accent' : ''
+            className={`p-6 cursor-pointer transition-smooth hover:shadow-medium bg-white/95 backdrop-blur-sm ${
+              selectedLanguage === 'english' ? 'ring-2 ring-primary bg-white' : ''
             }`}
             onClick={() => handleLanguageSelect('english')}
           >
@@ -54,8 +71,8 @@ const LanguageSelection = () => {
           </Card>
 
           <Card 
-            className={`p-6 cursor-pointer transition-smooth hover:shadow-medium ${
-              selectedLanguage === 'spanish' ? 'ring-2 ring-primary bg-accent' : ''
+            className={`p-6 cursor-pointer transition-smooth hover:shadow-medium bg-white/95 backdrop-blur-sm ${
+              selectedLanguage === 'spanish' ? 'ring-2 ring-primary bg-white' : ''
             }`}
             onClick={() => handleLanguageSelect('spanish')}
           >

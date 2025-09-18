@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import beeOneLogo from "@/assets/logo_beeone_white.png";
+import backgroundImage from "@/assets/background_green.png";
 
 const WelcomeScreen = () => {
   const [animate, setAnimate] = useState(false);
@@ -14,13 +16,26 @@ const WelcomeScreen = () => {
   }, [navigate]);
 
   return (
-    <div className="min-h-screen bg-gradient-hero flex flex-col items-center justify-center p-6 text-white">
-      <div className={`text-center transition-all duration-1000 ${animate ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
+    <div 
+      className="min-h-screen flex flex-col items-center justify-center p-6 text-white relative"
+      style={{
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat'
+      }}
+    >
+      {/* Overlay for better text readability */}
+      <div className="absolute inset-0 bg-black/20"></div>
+      
+      <div className={`text-center transition-all duration-1000 relative z-10 ${animate ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
         <div className="mb-8">
-          <div className="w-24 h-24 mx-auto bg-white rounded-full flex items-center justify-center mb-6 shadow-glow animate-bounce-gentle">
-            <div className="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center">
-              <span className="text-white font-bold text-2xl">B</span>
-            </div>
+          <div className="w-32 h-32 mx-auto bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center mb-6 shadow-glow animate-bounce-gentle p-4">
+            <img 
+              src={beeOneLogo} 
+              alt="BeeOne Logo" 
+              className="w-full h-full object-contain"
+            />
           </div>
         </div>
         
