@@ -11,13 +11,13 @@ const WelcomeScreen = () => {
     setAnimate(true);
     const timer = setTimeout(() => {
       navigate("/language");
-    }, 4000); // Extended time to read the new content
+    }, 4000);
     return () => clearTimeout(timer);
   }, [navigate]);
 
   return (
     <div 
-      className="min-h-screen flex flex-col items-center justify-center p-6 text-white relative font-montserrat"
+      className="min-h-screen flex flex-col items-center justify-center p-8 text-white relative font-montserrat"
       style={{
         backgroundImage: `url(${backgroundImage})`,
         backgroundSize: 'cover',
@@ -25,53 +25,54 @@ const WelcomeScreen = () => {
         backgroundRepeat: 'no-repeat'
       }}
     >
-      {/* Overlay for better text readability */}
-      <div className="absolute inset-0 bg-black/20"></div>
+      {/* Subtle overlay */}
+      <div className="absolute inset-0 bg-black/5"></div>
       
-      <div className={`text-center transition-all duration-1000 relative z-10 ${animate ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
-        <div className="mb-8">
-          <div className="w-32 h-32 mx-auto bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center mb-8 shadow-glow animate-bounce-gentle p-4">
-            <img 
-              src={beeOneLogo} 
-              alt="BeeOne Logo" 
-              className="w-full h-full object-contain"
-            />
-          </div>
+      <div className={`text-center transition-all duration-1200 relative z-10 max-w-sm ${animate ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+        {/* Clean BeeOne Logo */}
+        <div className="mb-12">
+          <img 
+            src={beeOneLogo} 
+            alt="BeeOne" 
+            className="h-16 mx-auto mb-12 opacity-90"
+          />
         </div>
         
-        <h1 className="text-4xl font-bold mb-6 animate-fade-in-up">
+        {/* Main Title */}
+        <h1 className="text-3xl font-bold mb-6 tracking-tight leading-tight">
           BeeOne Manager
         </h1>
         
-        <div className="mb-8 animate-fade-in-up" style={{ animationDelay: "0.3s" }}>
-          <p className="text-lg font-semibold mb-4 text-primary-light">
-            NEXT GEN FARM MANAGEMENT SOFTWARE
+        {/* Subtitle */}
+        <div className="mb-8">
+          <p className="text-primary-light font-medium text-sm tracking-wider uppercase mb-6 opacity-90">
+            Next Gen Farm Management Software
           </p>
           
-          <div className="space-y-2">
-            <div className="flex items-center justify-center space-x-2">
-              <div className="w-2 h-2 bg-white rounded-full"></div>
-              <p className="text-base font-medium tracking-wider">AGILE</p>
+          {/* Feature Points */}
+          <div className="space-y-3">
+            <div className="flex items-center justify-center space-x-3 opacity-95">
+              <div className="w-1.5 h-1.5 bg-white rounded-full"></div>
+              <p className="text-base font-light tracking-wide">AGILE</p>
             </div>
             
-            <div className="flex items-center justify-center space-x-2">
-              <div className="w-2 h-2 bg-white rounded-full"></div>
-              <p className="text-base font-medium tracking-wider">PLUG AND PLAY</p>
+            <div className="flex items-center justify-center space-x-3 opacity-95">
+              <div className="w-1.5 h-1.5 bg-white rounded-full"></div>
+              <p className="text-base font-light tracking-wide">PLUG AND PLAY</p>
             </div>
             
-            <div className="flex items-center justify-center space-x-2">
-              <div className="w-2 h-2 bg-white rounded-full"></div>
-              <p className="text-base font-medium tracking-wider">IMMEDIATE IMPACT</p>
+            <div className="flex items-center justify-center space-x-3 opacity-95">
+              <div className="w-1.5 h-1.5 bg-white rounded-full"></div>
+              <p className="text-base font-light tracking-wide">IMMEDIATE IMPACT</p>
             </div>
           </div>
         </div>
         
-        <div className="flex justify-center">
-          <div className="animate-pulse-soft">
-            <div className="w-2 h-2 bg-white rounded-full mx-1 inline-block"></div>
-            <div className="w-2 h-2 bg-white rounded-full mx-1 inline-block" style={{ animationDelay: "0.2s" }}></div>
-            <div className="w-2 h-2 bg-white rounded-full mx-1 inline-block" style={{ animationDelay: "0.4s" }}></div>
-          </div>
+        {/* Loading Indicator */}
+        <div className="flex justify-center space-x-2 opacity-70">
+          <div className="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></div>
+          <div className="w-1.5 h-1.5 bg-white rounded-full animate-pulse" style={{ animationDelay: "0.2s" }}></div>
+          <div className="w-1.5 h-1.5 bg-white rounded-full animate-pulse" style={{ animationDelay: "0.4s" }}></div>
         </div>
       </div>
     </div>
