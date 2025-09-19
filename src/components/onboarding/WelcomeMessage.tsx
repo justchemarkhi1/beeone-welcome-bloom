@@ -7,6 +7,34 @@ import backgroundImage from "@/assets/background_green.png";
 
 const WelcomeMessage = () => {
   const navigate = useNavigate();
+  const selectedLanguage = localStorage.getItem('selectedLanguage') || 'english';
+  
+  const translations = {
+    english: {
+      title: "Welcome from Fruit Attraction 2025!",
+      aboutTitle: "About BeeOne Manager",
+      aboutText: "BeeOne Manager is the dedicated output platform specifically designed for farm managers who need quick access to critical insights and data.",
+      poweredTitle: "Powered by BeeOne",
+      poweredText: "All data comes from BeeOne - the comprehensive, all-inclusive farm management system that handles every aspect of your agricultural operations.",
+      readyTitle: "Ready to Experience BeeOne Manager?",
+      readyText: "Your personalized demo showcases real farm management capabilities",
+      button: "Explore BeeOne Manager Features",
+      footer: "Thank you for visiting us at Fruit Attraction 2025"
+    },
+    spanish: {
+      title: "¡Bienvenido desde Fruit Attraction 2025!",
+      aboutTitle: "Sobre BeeOne Manager",
+      aboutText: "BeeOne Manager es la plataforma de salida dedicada específicamente diseñada para gerentes de finca que necesitan acceso rápido a información crítica y datos.",
+      poweredTitle: "Desarrollado por BeeOne",
+      poweredText: "Todos los datos provienen de BeeOne - el sistema integral de gestión agrícola que maneja cada aspecto de sus operaciones agrícolas.",
+      readyTitle: "¿Listo para Experimentar BeeOne Manager?",
+      readyText: "Su demo personalizado muestra capacidades reales de gestión agrícola",
+      button: "Explorar las Características de BeeOne Manager",
+      footer: "Gracias por visitarnos en Fruit Attraction 2025"
+    }
+  };
+  
+  const t = translations[selectedLanguage as keyof typeof translations];
 
   return (
     <div 
@@ -34,7 +62,7 @@ const WelcomeMessage = () => {
             </div>
             
             <h1 className="text-xl font-bold text-foreground mb-6">
-              Welcome from Fruit Attraction 2025!
+              {t.title}
             </h1>
           </div>
             
@@ -48,9 +76,9 @@ const WelcomeMessage = () => {
                 />
               </div>
               <div>
-                <h3 className="font-semibold text-sm text-foreground mb-1">About BeeOne Manager</h3>
+                <h3 className="font-semibold text-sm text-foreground mb-1">{t.aboutTitle}</h3>
                 <p className="text-xs text-muted-foreground leading-relaxed">
-                  BeeOne Manager is the dedicated output platform specifically designed for farm managers who need quick access to critical insights and data.
+                  {t.aboutText}
                 </p>
               </div>
             </div>
@@ -60,9 +88,9 @@ const WelcomeMessage = () => {
                 <span className="text-white text-sm">🌾</span>
               </div>
               <div>
-                <h3 className="font-semibold text-sm text-foreground mb-1">Powered by BeeOne</h3>
+                <h3 className="font-semibold text-sm text-foreground mb-1">{t.poweredTitle}</h3>
                 <p className="text-xs text-muted-foreground leading-relaxed">
-                  All data comes from BeeOne - the comprehensive, all-inclusive farm management system that handles every aspect of your agricultural operations.
+                  {t.poweredText}
                 </p>
               </div>
             </div>
@@ -72,9 +100,9 @@ const WelcomeMessage = () => {
                 <span className="text-primary text-sm">🚀</span>
               </div>
               <div>
-                <h3 className="font-semibold text-sm text-foreground mb-1">Ready to Experience BeeOne Manager?</h3>
+                <h3 className="font-semibold text-sm text-foreground mb-1">{t.readyTitle}</h3>
                 <p className="text-xs text-muted-foreground leading-relaxed">
-                  Your personalized demo showcases real farm management capabilities
+                  {t.readyText}
                 </p>
               </div>
             </div>
@@ -84,12 +112,12 @@ const WelcomeMessage = () => {
             onClick={() => navigate("/features")}
             className="w-full bg-gradient-primary hover:opacity-90 transition-smooth shadow-soft text-base py-5 mb-4"
           >
-            Explore BeeOne Manager Features
+            {t.button}
           </Button>
           
           <div className="text-center">
             <p className="text-xs text-muted-foreground">
-              Thank you for visiting us at Fruit Attraction 2025
+              {t.footer}
             </p>
           </div>
         </Card>

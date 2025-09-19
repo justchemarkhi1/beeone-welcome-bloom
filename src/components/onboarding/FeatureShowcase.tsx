@@ -9,34 +9,110 @@ const FeatureShowcase = () => {
   const navigate = useNavigate();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAutoScrolling, setIsAutoScrolling] = useState(true);
+  const selectedLanguage = localStorage.getItem('selectedLanguage') || 'english';
+
+  const translations = {
+    english: {
+      title: "BeeOne Manager Features",
+      subtitle: "Discover what makes us the perfect solution for modern farm management",
+      features: [
+        {
+          title: "Real-Time KPIs",
+          description: "Access instant insights into your farm's performance with live data visualization and comprehensive analytics.",
+          details: "Monitor yield, efficiency, and productivity metrics in real-time to make informed decisions quickly."
+        },
+        {
+          title: "Interactive Map Views",
+          description: "Visualize your entire farm operation with detailed, interactive maps showing field conditions and activities.",
+          details: "Track equipment, monitor field conditions, and plan operations with precision mapping technology."
+        },
+        {
+          title: "Team Collaboration",
+          description: "Seamlessly collaborate with your team members, share updates, and coordinate farm activities efficiently.",
+          details: "Assign tasks, share notes, and maintain communication across all farm operations in one platform."
+        },
+        {
+          title: "AI Voice Assistant",
+          description: "Get instant answers about your farm's performance using our intelligent voice assistant powered by BeeOne data.",
+          details: "Simply ask questions about your crops, weather, tasks, or any farm data and get immediate insights."
+        }
+      ],
+      navigation: {
+        previous: "Previous",
+        next: "Next",
+        getDemo: "Get Demo"
+      },
+      footer: {
+        poweredBy: "Powered by BeeOne",
+        autoScrolling: "Auto-scrolling..."
+      }
+    },
+    spanish: {
+      title: "Características de BeeOne Manager",
+      subtitle: "Descubre lo que nos convierte en la solución perfecta para la gestión agrícola moderna",
+      features: [
+        {
+          title: "KPIs en Tiempo Real",
+          description: "Accede a información instantánea sobre el rendimiento de tu finca con visualización de datos en vivo y análisis integral.",
+          details: "Monitorea métricas de rendimiento, eficiencia y productividad en tiempo real para tomar decisiones informadas rápidamente."
+        },
+        {
+          title: "Vistas de Mapas Interactivos",
+          description: "Visualiza toda tu operación agrícola con mapas detallados e interactivos que muestran condiciones del campo y actividades.",
+          details: "Rastrea equipos, monitorea condiciones del campo y planifica operaciones con tecnología de mapeo de precisión."
+        },
+        {
+          title: "Colaboración en Equipo",
+          description: "Colabora sin problemas con los miembros de tu equipo, comparte actualizaciones y coordina actividades agrícolas de manera eficiente.",
+          details: "Asigna tareas, comparte notas y mantén comunicación en todas las operaciones agrícolas en una sola plataforma."
+        },
+        {
+          title: "Asistente de Voz IA",
+          description: "Obtén respuestas instantáneas sobre el rendimiento de tu finca usando nuestro asistente de voz inteligente impulsado por datos de BeeOne.",
+          details: "Simplemente haz preguntas sobre tus cultivos, clima, tareas o cualquier dato agrícola y obtén información inmediata."
+        }
+      ],
+      navigation: {
+        previous: "Anterior",
+        next: "Siguiente",
+        getDemo: "Obtener Demo"
+      },
+      footer: {
+        poweredBy: "Desarrollado por BeeOne",
+        autoScrolling: "Avance automático..."
+      }
+    }
+  };
+
+  const t = translations[selectedLanguage as keyof typeof translations];
 
   const features = [
     {
       icon: BarChart3,
-      title: "Real-Time KPIs",
-      description: "Access instant insights into your farm's performance with live data visualization and comprehensive analytics.",
-      details: "Monitor yield, efficiency, and productivity metrics in real-time to make informed decisions quickly.",
+      title: t.features[0].title,
+      description: t.features[0].description,
+      details: t.features[0].details,
       color: "bg-primary"
     },
     {
       icon: Map,
-      title: "Interactive Map Views",
-      description: "Visualize your entire farm operation with detailed, interactive maps showing field conditions and activities.",
-      details: "Track equipment, monitor field conditions, and plan operations with precision mapping technology.",
+      title: t.features[1].title,
+      description: t.features[1].description,
+      details: t.features[1].details,
       color: "bg-blue-500"
     },
     {
       icon: Users,
-      title: "Team Collaboration",
-      description: "Seamlessly collaborate with your team members, share updates, and coordinate farm activities efficiently.",
-      details: "Assign tasks, share notes, and maintain communication across all farm operations in one platform.",
+      title: t.features[2].title,
+      description: t.features[2].description,
+      details: t.features[2].details,
       color: "bg-purple-500"
     },
     {
       icon: Mic,
-      title: "AI Voice Assistant",
-      description: "Get instant answers about your farm's performance using our intelligent voice assistant powered by BeeOne data.",
-      details: "Simply ask questions about your crops, weather, tasks, or any farm data and get immediate insights.",
+      title: t.features[3].title,
+      description: t.features[3].description,
+      details: t.features[3].details,
       color: "bg-emerald-500"
     }
   ];
@@ -98,10 +174,10 @@ const FeatureShowcase = () => {
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-2xl font-bold text-white mb-2">
-            BeeOne Manager Features
+            {t.title}
           </h1>
           <p className="text-white/80 text-sm font-light">
-            Discover what makes us the perfect solution for modern farm management
+            {t.subtitle}
           </p>
         </div>
 
@@ -141,7 +217,7 @@ const FeatureShowcase = () => {
             disabled={currentSlide === 0}
             className="text-white border-white/30 hover:bg-white/10 bg-white/5 backdrop-blur-sm"
           >
-            Previous
+            {t.navigation.previous}
           </Button>
 
           {/* Progress Indicators */}
@@ -162,18 +238,18 @@ const FeatureShowcase = () => {
             size="sm"
             className="bg-white text-gray-800 hover:bg-white/90"
           >
-            {currentSlide === features.length - 1 ? 'Get Demo' : 'Next'}
+            {currentSlide === features.length - 1 ? t.navigation.getDemo : t.navigation.next}
           </Button>
         </div>
 
         {/* Footer */}
         <div className="text-center">
           <p className="text-xs text-white/60">
-            {currentSlide + 1} of {features.length} • Powered by BeeOne
+            {currentSlide + 1} of {features.length} • {t.footer.poweredBy}
           </p>
           {isAutoScrolling && (
             <p className="text-xs text-white/40 mt-1">
-              Auto-scrolling...
+              {t.footer.autoScrolling}
             </p>
           )}
         </div>

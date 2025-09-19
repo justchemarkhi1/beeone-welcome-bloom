@@ -7,6 +7,24 @@ import backgroundImage from "@/assets/background_green.png";
 
 const Confirmation = () => {
   const [animate, setAnimate] = useState(false);
+  const selectedLanguage = localStorage.getItem('selectedLanguage') || 'english';
+
+  const translations = {
+    english: {
+      title: "Demo Access Sent!",
+      subtitle: "Check your email for your BeeOne Manager demo credentials",
+      button: "Continue to BeeOne Manager",
+      footer: "Need help? Contact our support team anytime."
+    },
+    spanish: {
+      title: "¡Acceso de Demo Enviado!",
+      subtitle: "Revisa tu correo electrónico para tus credenciales de demo de BeeOne Manager",
+      button: "Continuar a BeeOne Manager",
+      footer: "¿Necesitas ayuda? Contacta a nuestro equipo de soporte en cualquier momento."
+    }
+  };
+
+  const t = translations[selectedLanguage as keyof typeof translations];
 
   useEffect(() => {
     setAnimate(true);
@@ -37,11 +55,11 @@ const Confirmation = () => {
             </div>
             
             <h1 className="text-2xl font-bold mb-3">
-              Demo Access Sent!
+              {t.title}
             </h1>
             
             <p className="text-muted-foreground">
-              Check your email for your BeeOne Manager demo credentials
+              {t.subtitle}
             </p>
           </div>
 
@@ -49,12 +67,12 @@ const Confirmation = () => {
             onClick={handleClose}
             className="w-full bg-gradient-primary hover:opacity-90 transition-smooth text-lg py-4 mb-4"
           >
-            Continue to BeeOne Manager
+            {t.button}
           </Button>
 
           <div className="text-center">
             <p className="text-xs text-muted-foreground">
-              Need help? Contact our support team anytime.
+              {t.footer}
             </p>
           </div>
         </Card>

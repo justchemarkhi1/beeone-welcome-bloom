@@ -9,6 +9,7 @@ const LanguageSelection = () => {
 
   const handleLanguageSelect = (language: string) => {
     setSelectedLanguage(language);
+    localStorage.setItem('selectedLanguage', language);
     setTimeout(() => {
       navigate("/welcome");
     }, 300);
