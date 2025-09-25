@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { CheckCircle, Mail, Smartphone, Clock } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-mobile";
 import beeOneLogo from "@/assets/logo_beeone_white.png";
 import backgroundImage from "@/assets/background_green.png";
 
 const Confirmation = () => {
   const [animate, setAnimate] = useState(false);
+  const isMobile = useIsMobile();
   const selectedLanguage = localStorage.getItem('selectedLanguage') || 'english';
 
   const translations = {
@@ -31,7 +33,17 @@ const Confirmation = () => {
   }, []);
 
   const handleClose = () => {
-    window.location.href = "/";
+    if (isMobile) {
+      // Try to open Gmail app on mobile, fallback to web if not available
+      window.location.href = "googlegmail://";
+      // Fallback to web Gmail after a short delay if app doesn't open
+      setTimeout(() => {
+        window.location.href = "https://mail.google.com";
+      }, 1000);
+    } else {
+      // Open Gmail in browser on desktop
+      window.open("https://gmail.com", "_blank");
+    }
   };
 
   return (
