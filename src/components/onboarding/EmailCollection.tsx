@@ -59,11 +59,38 @@ const EmailCollection = () => {
 
     setIsSubmitting(true);
     
-    // Simulate API call
-    setTimeout(() => {
+    try {
+      // Call the Supabase edge function to send demo access
+      const response = await fetch('https://ybusmykdoythapsbplcb.supabase.co/functions/v1/send-demo-access', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          language: selectedLanguage
+        })
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        navigate("/confirmation");
+      } else {
+        throw new Error(result.error || 'Failed to send demo access');
+      }
+    } catch (error) {
+      console.error('Error sending demo access:', error);
+      toast({
+        title: selectedLanguage === 'spanish' ? "Error" : "Error",
+        description: selectedLanguage === 'spanish' 
+          ? "Hubo un problema enviando tu acceso de demo. Por favor intenta de nuevo." 
+          : "There was a problem sending your demo access. Please try again.",
+        variant: "destructive"
+      });
+    } finally {
       setIsSubmitting(false);
-      navigate("/confirmation");
-    }, 2000);
+    }
   };
 
   return (
