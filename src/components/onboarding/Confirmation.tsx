@@ -5,6 +5,8 @@ import { CheckCircle, Mail, Smartphone, Clock } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import beeOneLogo from "@/assets/logo_beeone_white.png";
 import backgroundImage from "@/assets/background_green.png";
+import loginScreenGuide from "@/assets/login_screen_guide.png";
+import accessKeyGuide from "@/assets/access_key_guide.png";
 
 const Confirmation = () => {
   const [animate, setAnimate] = useState(false);
@@ -16,13 +18,19 @@ const Confirmation = () => {
       title: "Demo Access Sent!",
       subtitle: "Check your email for your BeeOne Manager demo credentials",
       button: "Continue to BeeOne Manager",
-      footer: "Need help? Contact our support team anytime."
+      footer: "Need help? Contact our support team anytime.",
+      instructionsTitle: "How to Use Your Access Key:",
+      step1: "1. Open BeeOne Manager app and tap the settings icon",
+      step2: "2. Enter the access key from your email when prompted"
     },
     spanish: {
       title: "¡Acceso de Demo Enviado!",
       subtitle: "Revisa tu correo electrónico para tus credenciales de demo de BeeOne Manager",
       button: "Continuar a BeeOne Manager",
-      footer: "¿Necesitas ayuda? Contacta a nuestro equipo de soporte en cualquier momento."
+      footer: "¿Necesitas ayuda? Contacta a nuestro equipo de soporte en cualquier momento.",
+      instructionsTitle: "Cómo Usar tu Clave de Acceso:",
+      step1: "1. Abre la app BeeOne Manager y toca el ícono de configuración",
+      step2: "2. Ingresa la clave de acceso de tu correo cuando se te solicite"
     }
   };
 
@@ -73,6 +81,37 @@ const Confirmation = () => {
             <p className="text-muted-foreground">
               {t.subtitle}
             </p>
+          </div>
+
+          {/* Instructions Section */}
+          <div className="mb-6">
+            <h3 className="text-lg font-semibold mb-4 text-center">
+              {t.instructionsTitle}
+            </h3>
+            
+            <div className="space-y-4">
+              <div className="flex items-start gap-3">
+                <img 
+                  src={loginScreenGuide} 
+                  alt="Settings icon location" 
+                  className="w-16 h-20 rounded-md border object-cover"
+                />
+                <p className="text-sm text-muted-foreground flex-1 pt-2">
+                  {t.step1}
+                </p>
+              </div>
+              
+              <div className="flex items-start gap-3">
+                <img 
+                  src={accessKeyGuide} 
+                  alt="Access key dialog" 
+                  className="w-16 h-20 rounded-md border object-cover"
+                />
+                <p className="text-sm text-muted-foreground flex-1 pt-2">
+                  {t.step2}
+                </p>
+              </div>
+            </div>
           </div>
 
           <Button
