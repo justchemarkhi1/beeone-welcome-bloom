@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Mail, Shield, ArrowRight } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 import backgroundImage from "@/assets/background_green.png";
 
 const EmailCollection = () => {
@@ -20,9 +21,9 @@ const EmailCollection = () => {
       subtitle: "Enter your email to receive your BeeOne Manager demo credentials",
       emailLabel: "Email Address",
       emailPlaceholder: "your.email@company.com",
-      securityTitle: "Secure Demo Access",
-      securityText: "Your login credentials will be sent securely to your email within minutes.",
-      buttonSend: "Send Demo Access",
+      securityTitle: "Instant Demo Access",
+      securityText: "Your login credentials will be generated instantly after email validation.",
+      buttonSend: "Get Demo Access",
       buttonSending: "Sending...",
       footer: "By providing your email, you agree to receive demo access information from BeeOne.",
       toastTitle: "Invalid Email",
@@ -33,9 +34,9 @@ const EmailCollection = () => {
       subtitle: "Introduce tu correo electrónico para recibir tus credenciales de demo de BeeOne Manager",
       emailLabel: "Dirección de Correo Electrónico",
       emailPlaceholder: "tu.correo@empresa.com",
-      securityTitle: "Acceso Seguro al Demo",
-      securityText: "Tus credenciales de acceso serán enviadas de forma segura a tu correo en cuestión de minutos.",
-      buttonSend: "Enviar Acceso de Demo",
+      securityTitle: "Acceso Instantáneo al Demo",
+      securityText: "Tus credenciales de acceso se generarán instantáneamente después de validar tu correo.",
+      buttonSend: "Obtener Acceso de Demo",
       buttonSending: "Enviando...",
       footer: "Al proporcionar tu correo electrónico, aceptas recibir información de acceso de demo de BeeOne.",
       toastTitle: "Correo Inválido",
@@ -60,32 +61,36 @@ const EmailCollection = () => {
     setIsSubmitting(true);
     
     try {
-      // Call the Supabase edge function to send demo access
-      const response = await fetch('https://ybusmykdoythapsbplcb.supabase.co/functions/v1/send-demo-access', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email,
-          language: selectedLanguage
-        })
+      const { data, error } = await supabase.functions.invoke('validate-email', {
+        body: { 
+          email: email.trim(),
+          language: selectedLanguage 
+        }
       });
 
-      const result = await response.json();
+      if (error) throw error;
 
-      if (result.success) {
-        navigate("/confirmation");
+      if (data?.success && data?.valid) {
+        // Store credentials in localStorage and navigate to credentials display
+        localStorage.setItem('demoCredentials', JSON.stringify(data.credentials));
+        navigate('/credentials');
       } else {
-        throw new Error(result.error || 'Failed to send demo access');
+        // Email is not valid - show error message
+        toast({
+          title: selectedLanguage === 'spanish' ? "Email no válido" : "Invalid Email",
+          description: selectedLanguage === 'spanish' 
+            ? "Por favor ingresa un email real y válido que puedas acceder" 
+            : "Please enter a real, valid email address that you can access",
+          variant: "destructive",
+        });
       }
     } catch (error) {
-      console.error('Error sending demo access:', error);
+      console.error('Error validating email:', error);
       toast({
         title: selectedLanguage === 'spanish' ? "Error" : "Error",
         description: selectedLanguage === 'spanish' 
-          ? "Hubo un problema enviando tu acceso de demo. Por favor intenta de nuevo." 
-          : "There was a problem sending your demo access. Please try again.",
+          ? "Hubo un problema validando tu email. Por favor intenta de nuevo." 
+          : "There was a problem validating your email. Please try again.",
         variant: "destructive"
       });
     } finally {
@@ -162,7 +167,7 @@ const EmailCollection = () => {
               {isSubmitting ? (
                 <div className="flex items-center justify-center space-x-2">
                   <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                  <span>{t.buttonSending}</span>
+                  <span>Validating...</span>
                 </div>
               ) : (
                 <div className="flex items-center justify-center space-x-2">

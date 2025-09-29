@@ -2,3 +2,6 @@ project_id = "ybusmykdoythapsbplcb"
 
 [functions.send-demo-access]
 verify_jwt = false
+
+[functions.validate-email]
+verify_jwt = false
