@@ -11,7 +11,7 @@ import WelcomeMessage from "./components/onboarding/WelcomeMessage";
 import FeatureShowcase from "./components/onboarding/FeatureShowcase";
 import EmailCollection from "./components/onboarding/EmailCollection";
 import Confirmation from "./components/onboarding/Confirmation";
-import CredentialsPage from "./pages/CredentialsPage";
+
 
 const queryClient = new QueryClient();
 
@@ -28,7 +28,7 @@ const App = () => (
           <Route path="/welcome" element={<WelcomeMessage />} />
           <Route path="/features" element={<FeatureShowcase />} />
           <Route path="/email" element={<EmailCollection />} />
-          <Route path="/credentials" element={<CredentialsPage />} />
+          
           <Route path="/confirmation" element={<Confirmation />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
