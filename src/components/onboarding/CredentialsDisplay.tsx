@@ -10,6 +10,8 @@ interface DemoCredentials {
   username: string;
   password: string;
   loginUrl: string;
+  playStoreUrl?: string;
+  appStoreUrl?: string;
 }
 
 interface CredentialsDisplayProps {
@@ -37,6 +39,9 @@ const CredentialsDisplay: React.FC<CredentialsDisplayProps> = ({ credentials }) 
       copied: "Copied to clipboard!",
       proceedMobile: "Open on Mobile",
       proceedDesktop: "Open on Desktop",
+      downloadApp: "Download App",
+      playStore: "Google Play Store",
+      appStore: "Apple App Store",
       note: "These credentials are valid for 7 days. Please save them securely.",
       footer: "BeeOne Manager - Your Digital Solution"
     },
@@ -54,6 +59,9 @@ const CredentialsDisplay: React.FC<CredentialsDisplayProps> = ({ credentials }) 
       copied: "¡Copiado al portapapeles!",
       proceedMobile: "Abrir en Móvil",
       proceedDesktop: "Abrir en Escritorio",
+      downloadApp: "Descargar Aplicación",
+      playStore: "Google Play Store",
+      appStore: "Apple App Store",
       note: "Estas credenciales son válidas por 7 días. Por favor guárdalas de forma segura.",
       footer: "BeeOne Manager - Tu Solución Digital"
     }
@@ -170,6 +178,35 @@ const CredentialsDisplay: React.FC<CredentialsDisplayProps> = ({ credentials }) 
             </p>
           </div>
         </div>
+
+        {/* App Download Links */}
+        {(credentials.playStoreUrl || credentials.appStoreUrl) && (
+          <div className="bg-green-50 p-4 rounded-lg border-l-4 border-primary">
+            <h3 className="text-sm font-semibold text-gray-800 mb-3">{t.downloadApp}</h3>
+            <div className="space-y-2">
+              {credentials.playStoreUrl && (
+                <a
+                  href={credentials.playStoreUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block text-sm text-primary hover:underline"
+                >
+                  📱 {t.playStore}
+                </a>
+              )}
+              {credentials.appStoreUrl && (
+                <a
+                  href={credentials.appStoreUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block text-sm text-primary hover:underline"
+                >
+                  🍎 {t.appStore}
+                </a>
+              )}
+            </div>
+          </div>
+        )}
 
         {/* Note */}
         <div className="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">

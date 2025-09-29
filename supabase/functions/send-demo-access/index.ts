@@ -46,11 +46,13 @@ const handler = async (req: Request): Promise<Response> => {
       throw new Error("Failed to store demo request");
     }
 
-    // Generate demo credentials (in a real app, these would be unique)
+    // Demo credentials for BeeOne Manager
     const demoCredentials = {
-      username: `demo_${Date.now()}`,
-      password: `BeeOne${Math.random().toString(36).substring(2, 8)}`,
-      loginUrl: "https://demo.beeone-manager.com/login"
+      username: "Fruit",
+      password: "Attraction2025",
+      loginUrl: "https://demo.beeone-manager.com/login",
+      playStoreUrl: "https://play.google.com/store/apps/details?id=com.agridata.collab.beeonemanagermob",
+      appStoreUrl: "https://apps.apple.com/ma/app/beeonemanager/id1607421193"
     };
 
     // Prepare email content based on language
@@ -66,9 +68,15 @@ const handler = async (req: Request): Promise<Response> => {
             <h2 style="color: #333; margin-bottom: 20px;">Tus Credenciales de Demo</h2>
             
             <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
-              <p><strong>URL de Acceso:</strong> <a href="${demoCredentials.loginUrl}" style="color: #8B5CF6;">${demoCredentials.loginUrl}</a></p>
+              <p><strong>URL de Acceso:</strong> <a href="${demoCredentials.loginUrl}" style="color: hsl(82, 64%, 45%);">${demoCredentials.loginUrl}</a></p>
               <p><strong>Usuario:</strong> ${demoCredentials.username}</p>
               <p><strong>Contraseña:</strong> ${demoCredentials.password}</p>
+            </div>
+
+            <div style="background: #f0f9f0; padding: 20px; border-radius: 8px; margin: 20px 0;">
+              <h3 style="color: #333; margin-bottom: 15px;">Descargar la Aplicación Móvil</h3>
+              <p style="margin-bottom: 10px;"><strong>Google Play Store:</strong> <a href="${demoCredentials.playStoreUrl}" style="color: hsl(82, 64%, 45%);">Descargar para Android</a></p>
+              <p><strong>Apple App Store:</strong> <a href="${demoCredentials.appStoreUrl}" style="color: hsl(82, 64%, 45%);">Descargar para iOS</a></p>
             </div>
 
             <div style="background: #e8f5e8; padding: 15px; border-radius: 8px; border-left: 4px solid #10b981; margin: 20px 0;">
@@ -104,9 +112,15 @@ const handler = async (req: Request): Promise<Response> => {
             <h2 style="color: #333; margin-bottom: 20px;">Your Demo Credentials</h2>
             
             <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
-              <p><strong>Login URL:</strong> <a href="${demoCredentials.loginUrl}" style="color: #8B5CF6;">${demoCredentials.loginUrl}</a></p>
+              <p><strong>Login URL:</strong> <a href="${demoCredentials.loginUrl}" style="color: hsl(82, 64%, 45%);">${demoCredentials.loginUrl}</a></p>
               <p><strong>Username:</strong> ${demoCredentials.username}</p>
               <p><strong>Password:</strong> ${demoCredentials.password}</p>
+            </div>
+
+            <div style="background: #f0f9f0; padding: 20px; border-radius: 8px; margin: 20px 0;">
+              <h3 style="color: #333; margin-bottom: 15px;">Download Mobile App</h3>
+              <p style="margin-bottom: 10px;"><strong>Google Play Store:</strong> <a href="${demoCredentials.playStoreUrl}" style="color: hsl(82, 64%, 45%);">Download for Android</a></p>
+              <p><strong>Apple App Store:</strong> <a href="${demoCredentials.appStoreUrl}" style="color: hsl(82, 64%, 45%);">Download for iOS</a></p>
             </div>
 
             <div style="background: #e8f5e8; padding: 15px; border-radius: 8px; border-left: 4px solid #10b981; margin: 20px 0;">
