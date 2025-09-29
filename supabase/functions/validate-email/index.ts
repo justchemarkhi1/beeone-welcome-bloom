@@ -1,9 +1,8 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
-const emailjsApiKey = Deno.env.get("EMAILJS_PRIVATE_API_KEY");
 const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
-const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
 
 const supabase = createClient(supabaseUrl, supabaseKey);
 
@@ -29,29 +28,11 @@ const handler = async (req: Request): Promise<Response> => {
 
     console.log(`Validating email: ${email}, language: ${language}`);
 
-    // Validate email using EmailJS
-    const validationResponse = await fetch(`https://api.emailjs.com/api/v1.0/email/validate`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${emailjsApiKey}`,
-      },
-      body: JSON.stringify({
-        email: email
-      }),
-    });
-
-    if (!validationResponse.ok) {
-      throw new Error("Failed to validate email");
-    }
-
-    const validationData = await validationResponse.json();
-    console.log("Email validation result:", validationData);
-
-    // Check if email is valid and deliverable
-    const isValid = validationData.is_valid_format && 
-                   validationData.is_mx_found && 
-                   validationData.is_smtp_valid;
+    // Internal email validation using regex
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const isValid = emailRegex.test(email.trim()) && email.length <= 255;
+    
+    console.log("Email validation result:", { email, isValid });
 
     if (!isValid) {
       return new Response(JSON.stringify({ 
