@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Mail, Shield, ArrowRight } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
-import { supabase } from "@/integrations/supabase/client";
+
 import backgroundImage from "@/assets/background_green.png";
 
 const EmailCollection = () => {
@@ -48,50 +48,39 @@ const EmailCollection = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (!email || !email.includes("@")) {
+
+    const trimmed = email.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const isValid = emailRegex.test(trimmed) && trimmed.length <= 255;
+
+    if (!isValid) {
       toast({
         title: t.toastTitle,
         description: t.toastDescription,
-        variant: "destructive"
+        variant: "destructive",
       });
       return;
     }
 
     setIsSubmitting(true);
-    
     try {
-      const { data, error } = await supabase.functions.invoke('validate-email', {
-        body: { 
-          email: email.trim(),
-          language: selectedLanguage 
-        }
-      });
+      const demoCredentials = {
+        username: `demo_${Date.now()}`,
+        password: `BeeOne${Math.random().toString(36).slice(2, 8)}`,
+        loginUrl: "https://demo.beeone-manager.com/login",
+      };
 
-      if (error) throw error;
-
-      if (data?.success && data?.valid) {
-        // Store credentials in localStorage and navigate to credentials display
-        localStorage.setItem('demoCredentials', JSON.stringify(data.credentials));
-        navigate('/credentials');
-      } else {
-        // Email is not valid - show error message
-        toast({
-          title: selectedLanguage === 'spanish' ? "Email no válido" : "Invalid Email",
-          description: selectedLanguage === 'spanish' 
-            ? "Por favor ingresa un email real y válido que puedas acceder" 
-            : "Please enter a real, valid email address that you can access",
-          variant: "destructive",
-        });
-      }
+      localStorage.setItem("demoCredentials", JSON.stringify(demoCredentials));
+      navigate("/credentials");
     } catch (error) {
-      console.error('Error validating email:', error);
+      console.error("Error generating credentials:", error);
       toast({
-        title: selectedLanguage === 'spanish' ? "Error" : "Error",
-        description: selectedLanguage === 'spanish' 
-          ? "Hubo un problema validando tu email. Por favor intenta de nuevo." 
-          : "There was a problem validating your email. Please try again.",
-        variant: "destructive"
+        title: selectedLanguage === "spanish" ? "Error" : "Error",
+        description:
+          selectedLanguage === "spanish"
+            ? "Hubo un problema generando las credenciales. Inténtalo de nuevo."
+            : "There was a problem generating your credentials. Please try again.",
+        variant: "destructive",
       });
     } finally {
       setIsSubmitting(false);
@@ -167,7 +156,7 @@ const EmailCollection = () => {
               {isSubmitting ? (
                 <div className="flex items-center justify-center space-x-2">
                   <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                  <span>Validating...</span>
+                  <span>Generating...</span>
                 </div>
               ) : (
                 <div className="flex items-center justify-center space-x-2">
