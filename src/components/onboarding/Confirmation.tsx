@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { CheckCircle, Mail, Smartphone, Clock } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import beeOneLogo from "@/assets/logo_beeone_white.png";
@@ -90,23 +91,45 @@ const Confirmation = () => {
             </h3>
             
             <div className="space-y-4">
-              <div className="flex items-start gap-3">
-                <img 
-                  src={loginScreenGuide} 
-                  alt="Settings icon location" 
-                  className="w-16 h-20 rounded-md border object-cover"
-                />
+              <div className="flex items-start gap-4">
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <img 
+                      src={loginScreenGuide} 
+                      alt="Settings icon location" 
+                      className="w-24 h-32 rounded-md border object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                    />
+                  </DialogTrigger>
+                  <DialogContent className="max-w-sm">
+                    <img 
+                      src={loginScreenGuide} 
+                      alt="Settings icon location - Full size" 
+                      className="w-full rounded-md"
+                    />
+                  </DialogContent>
+                </Dialog>
                 <p className="text-sm text-muted-foreground flex-1 pt-2">
                   {t.step1}
                 </p>
               </div>
               
-              <div className="flex items-start gap-3">
-                <img 
-                  src={accessKeyGuide} 
-                  alt="Access key dialog" 
-                  className="w-16 h-20 rounded-md border object-cover"
-                />
+              <div className="flex items-start gap-4">
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <img 
+                      src={accessKeyGuide} 
+                      alt="Access key dialog" 
+                      className="w-24 h-32 rounded-md border object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                    />
+                  </DialogTrigger>
+                  <DialogContent className="max-w-sm">
+                    <img 
+                      src={accessKeyGuide} 
+                      alt="Access key dialog - Full size" 
+                      className="w-full rounded-md"
+                    />
+                  </DialogContent>
+                </Dialog>
                 <p className="text-sm text-muted-foreground flex-1 pt-2">
                   {t.step2}
                 </p>
