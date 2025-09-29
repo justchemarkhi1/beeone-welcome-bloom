@@ -17,6 +17,8 @@ export type Database = {
       demo_requests: {
         Row: {
           created_at: string
+          demo_password: string | null
+          demo_username: string | null
           email: string
           id: string
           language: string
@@ -24,6 +26,8 @@ export type Database = {
         }
         Insert: {
           created_at?: string
+          demo_password?: string | null
+          demo_username?: string | null
           email: string
           id?: string
           language?: string
@@ -31,6 +35,8 @@ export type Database = {
         }
         Update: {
           created_at?: string
+          demo_password?: string | null
+          demo_username?: string | null
           email?: string
           id?: string
           language?: string
