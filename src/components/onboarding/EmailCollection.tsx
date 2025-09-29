@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Mail, Shield, ArrowRight } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
-
+import { supabase } from "@/integrations/supabase/client";
 import backgroundImage from "@/assets/background_green.png";
 
 const EmailCollection = () => {
@@ -64,22 +64,28 @@ const EmailCollection = () => {
 
     setIsSubmitting(true);
     try {
-      const demoCredentials = {
-        username: `demo_${Date.now()}`,
-        password: `BeeOne${Math.random().toString(36).slice(2, 8)}`,
-        loginUrl: "https://demo.beeone-manager.com/login",
-      };
+      const { data, error } = await supabase.functions.invoke('send-demo-access', {
+        body: { 
+          email: trimmed,
+          language: selectedLanguage 
+        }
+      });
 
-      localStorage.setItem("demoCredentials", JSON.stringify(demoCredentials));
-      navigate("/credentials");
+      if (error) throw error;
+
+      if (data?.success) {
+        navigate('/confirmation');
+      } else {
+        throw new Error(data?.error || 'Failed to send demo access');
+      }
     } catch (error) {
-      console.error("Error generating credentials:", error);
+      console.error("Error sending demo access:", error);
       toast({
         title: selectedLanguage === "spanish" ? "Error" : "Error",
         description:
           selectedLanguage === "spanish"
-            ? "Hubo un problema generando las credenciales. Inténtalo de nuevo."
-            : "There was a problem generating your credentials. Please try again.",
+            ? "Hubo un problema enviando las credenciales. Inténtalo de nuevo."
+            : "There was a problem sending your credentials. Please try again.",
         variant: "destructive",
       });
     } finally {
