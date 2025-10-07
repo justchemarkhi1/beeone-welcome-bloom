@@ -2,7 +2,6 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import beeOneLogo from "@/assets/logo_beeone_white.png";
-import fruitAttractionLogo from "@/assets/fruit_attraction_logo.png";
 import backgroundImage from "@/assets/background_green.png";
 
 const WelcomeMessage = () => {
@@ -11,7 +10,7 @@ const WelcomeMessage = () => {
   
   const translations = {
     english: {
-      title: "Welcome from Fruit Attraction 2025!",
+      title: "Welcome to BeeOne Manager!",
       aboutTitle: "About BeeOne Manager",
       aboutText: "BeeOne Manager is the dedicated output platform specifically designed for farm managers who need quick access to critical insights and data.",
       poweredTitle: "Powered by BeeOne",
@@ -19,10 +18,10 @@ const WelcomeMessage = () => {
       readyTitle: "Ready to Experience BeeOne Manager?",
       readyText: "Your personalized demo showcases real farm management capabilities",
       button: "Explore BeeOne Manager Features",
-      footer: "Thank you for visiting us at Fruit Attraction 2025"
+      footer: "Thank you for your interest in BeeOne Manager"
     },
     spanish: {
-      title: "¡Bienvenido desde Fruit Attraction 2025!",
+      title: "¡Bienvenido a BeeOne Manager!",
       aboutTitle: "Sobre BeeOne Manager",
       aboutText: "BeeOne Manager es la plataforma de salida dedicada específicamente diseñada para gerentes de finca que necesitan acceso rápido a información crítica y datos.",
       poweredTitle: "Desarrollado por BeeOne",
@@ -30,7 +29,7 @@ const WelcomeMessage = () => {
       readyTitle: "¿Listo para Experimentar BeeOne Manager?",
       readyText: "Su demo personalizado muestra capacidades reales de gestión agrícola",
       button: "Explorar las Características de BeeOne Manager",
-      footer: "Gracias por visitarnos en Fruit Attraction 2025"
+      footer: "Gracias por su interés en BeeOne Manager"
     }
   };
   
@@ -52,15 +51,6 @@ const WelcomeMessage = () => {
       <div className="w-full max-w-md animate-fade-in-up relative z-10">
         <Card className="p-6 shadow-medium bg-white/95 backdrop-blur-sm">
           <div className="text-center mb-6">
-            {/* Fruit Attraction Logo */}
-            <div className="w-full max-w-40 h-12 mx-auto mb-6 flex items-center justify-center">
-              <img 
-                src={fruitAttractionLogo} 
-                alt="Fruit Attraction 2025" 
-                className="max-w-full max-h-full object-contain"
-              />
-            </div>
-            
             <h1 className="text-xl font-bold text-foreground mb-6">
               {t.title}
             </h1>
